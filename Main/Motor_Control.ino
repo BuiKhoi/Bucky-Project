@@ -5,9 +5,9 @@ void StopAllMotor() { //Idle the robot
 
 void ShiftSpeed(int *MotorSpeed) { //Shift the speed to the motors
   MotorMapping(MotorSpeed);
-//  Serial.print(MotorSpeed[0]);
-//  Serial.print("  ");
-//  Serial.println(MotorSpeed[1]);
+  //  Serial.print(MotorSpeed[0]);
+  //  Serial.print("  ");
+  //  Serial.println(MotorSpeed[1]);
   for (int i = 0; i < 2; i++) {
     if (MotorSpeed[i] >= 0) {
       analogWrite(MotorInput[i], MotorSpeed[i]);
@@ -21,11 +21,11 @@ void ShiftSpeed(int *MotorSpeed) { //Shift the speed to the motors
 
 void MotorMapping(int *MotorSpeed) {
   int maxx = MotorSpeed[0];
-  maxx = (maxx<MotorSpeed[1])?MotorSpeed[1]:maxx;
-  if (maxx>255) {
-    double ratio =(double) 255/maxx;
-    for (int i=0; i<2; i++) {
-      MotorSpeed[i]*=ratio;
+  maxx = (maxx < MotorSpeed[1]) ? MotorSpeed[1] : maxx;
+  if (maxx > INITIAL_SPEED) {
+    double ratio = (double) INITIAL_SPEED / maxx;
+    for (int i = 0; i < 2; i++) {
+      MotorSpeed[i] *= ratio;
     }
   }
 }

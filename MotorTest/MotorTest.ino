@@ -6,11 +6,19 @@ void setup() {
     pinMode(MotorInput[i], OUTPUT);
     pinMode(MotorOutput[i], OUTPUT);
   }
+  Serial.begin(9600);
 }
 
 void loop() {
-  int temp[2] = {-200, 0};
+  for (int i=0; i<255; i+=2) {
+    int temp[2] = {i, i};
+    ShiftSpeed(temp);
+    Serial.println(i);
+    delay(200);
+  }
+  int temp[2] = {0, 0};
   ShiftSpeed(temp);
+  delay(200);
 }
 
 void StopAllMotor() { //Idle the robot

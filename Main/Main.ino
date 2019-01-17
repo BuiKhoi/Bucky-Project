@@ -48,15 +48,16 @@ void setup() {
 }
 
 void loop() {
-  //  while (Mode == 0) {
-  //    FollowLine();
-  //  }
-  //
-  //  while (Mode == 1) {
-  //    SonarWallRouting();
-  //    //    SonarRouting();
-  //  }
+  FollowLine();
+//    while (Mode == 0) {
+//      FollowLine();
+//    }
+//  
+//    while (Mode == 1) {
+//      SonarWallRouting();
+//      //    SonarRouting();
+//    }
 
 //  SonarWallRouting();
-    SonarRouting();
+//    SonarRouting();
 }

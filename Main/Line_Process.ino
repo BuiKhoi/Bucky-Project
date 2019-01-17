@@ -2,7 +2,7 @@ int GetError() { //Get the "error" in the moving direction
   static int prev_error = 0;
   switch (HighSignalCount()) {
     case 0: {
-        //        CheckModeSwitch();
+        CheckModeSwitch();
         if (prev_error == 0) {
           return 0;
         } else if (prev_error == 6 || prev_error == 7) {
@@ -123,12 +123,12 @@ int GetError() { //Get the "error" in the moving direction
           return prev_error;
         }
       }
-      case 7: {
-        StopAllMotor();
-        for (int i=0; i<5; i++) {
-          delay(1000);
-        }
-        SystemReset();
+    case 7: {
+//        StopAllMotor();
+//        for (int i = 0; i < 5; i++) {
+//          delay(1000);
+//        }
+//        SystemReset();
         break;
       }
     default: {

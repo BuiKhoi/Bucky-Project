@@ -75,7 +75,6 @@ void SonarWallRouting() { //Track the wall with sonar sensor
 
 bool Interrupted() { //Check if the robot path is "interrupted"
   if (GetDistance(0) > 20 || GetDistance(2) > 20) {
-    Serial.println("Interrupted");
     return true;
   }
   else return false;
