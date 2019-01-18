@@ -14,6 +14,18 @@ bool ReadLine(int index) { //Get the sensor status for each sensor
   }
 }
 
+void CheckBarrie() {
+  static bool first = true;
+  if (GetDistance(1) <= 10 && first) {
+    StopAllMotor();
+    while (GetDistance(1) <=10) {
+      delay(150);
+    }
+    first = false;
+    sys_start = millis();
+  }
+}
+
 double GetDistance(int index) { //Get the sonar distance with kalman filter
   unsigned long duration;
   double distance;

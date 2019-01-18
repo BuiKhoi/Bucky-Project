@@ -2,7 +2,7 @@
 
 #define Sensor_HIGH  450 //High level for optical sensor
 
-#define INITIAL_SPEED  255
+int INITIAL_SPEED = 255;
 #define INITIAL_SONAR_SPEED 150
 
 SimpleKalmanFilter Sonar00(10, 10, 5);
@@ -28,6 +28,8 @@ int Mode = 0; //0 for line tracking, 1 for sonar routing
 
 void(* SystemReset) (void) = 0;
 
+long long int sys_start = 0;
+
 void setup() {
   for (int i = 0; i < 2; i++) {
     pinMode(MotorInput[i], OUTPUT);
@@ -44,6 +46,7 @@ void setup() {
   }
   Serial.begin(9600);
   StopAllMotor();
+  sys_start = millis();
   Serial.println("System started");
 }
 

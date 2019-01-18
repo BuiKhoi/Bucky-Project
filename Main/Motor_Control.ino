@@ -20,10 +20,16 @@ void ShiftSpeed(int *MotorSpeed) { //Shift the speed to the motors
 }
 
 void MotorMapping(int *MotorSpeed) {
+  int TEMP_INITIAL_SPEED = 0;
+  if (millis() - sys_start < 600) {
+    TEMP_INITIAL_SPEED = (float)(INITIAL_SPEED * ((millis() - sys_start)) / 100);
+  } else {
+    TEMP_INITIAL_SPEED = INITIAL_SPEED;
+  }
   int maxx = MotorSpeed[0];
   maxx = (maxx < MotorSpeed[1]) ? MotorSpeed[1] : maxx;
-  if (maxx > INITIAL_SPEED) {
-    double ratio = (double) INITIAL_SPEED / maxx;
+  if (maxx > TEMP_INITIAL_SPEED) {
+    double ratio = (double) TEMP_INITIAL_SPEED / maxx;
     for (int i = 0; i < 2; i++) {
       MotorSpeed[i] *= ratio;
     }

@@ -3,6 +3,7 @@ int GetError() { //Get the "error" in the moving direction
   switch (HighSignalCount()) {
     case 0: {
         CheckModeSwitch();
+        CheckBarrie();
         if (prev_error == 0) {
           return 0;
         } else if (prev_error == 6 || prev_error == 7) {
@@ -106,6 +107,7 @@ int GetError() { //Get the "error" in the moving direction
           prev_error = 6;
           return 6;
         } else if (Line[2] && Line[3] && Line[4]) {
+          CheckBarrie();
           prev_error = 0;
           return 0;
         } else return prev_error;
@@ -124,14 +126,15 @@ int GetError() { //Get the "error" in the moving direction
         }
       }
     case 7: {
-//        StopAllMotor();
-//        for (int i = 0; i < 5; i++) {
-//          delay(1000);
-//        }
-//        SystemReset();
+        //        StopAllMotor();
+        //        for (int i = 0; i < 5; i++) {
+        //          delay(1000);
+        //        }
+        //        SystemReset();
         break;
       }
     default: {
+        CheckBarrie();
         int temp = CountLeft() - CountRight();
         if (temp < -1) {
           prev_error = 8;
