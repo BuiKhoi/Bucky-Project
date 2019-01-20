@@ -1,6 +1,6 @@
 #include <SimpleKalmanFilter.h>
 
-#define Sensor_HIGH  450 //High level for optical sensor
+#define Sensor_HIGH  500 //High level for optical sensor
 
 int INITIAL_SPEED = 255;
 #define INITIAL_SONAR_SPEED 150
