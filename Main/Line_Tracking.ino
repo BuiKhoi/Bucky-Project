@@ -4,11 +4,11 @@ void FollowLine() { //Main action for the robot to follow the line
   ShiftSpeed(Motor);
 }
 
-void LineTurnLeft() { //Turn left in line mode (not tested)
-  Motor[1] = -INITIAL_SPEED/10;
-  Motor[2] = INITIAL_SPEED/2;
+void LineTurnLeft() { //Turn left in line mode
+  Motor[1] = -INITIAL_SPEED/5;
+  Motor[2] = INITIAL_SPEED/1.5;
   ShiftSpeed(Motor);
-  delay(200);
+  delay(300);
   while (!ReadLine(3)) {
     ShiftSpeed(Motor);
     delay(50);
@@ -16,15 +16,14 @@ void LineTurnLeft() { //Turn left in line mode (not tested)
   StopAllMotor();
 }
 
-void LineTurnRight() { //Turn right in line mode (not tested)
-  Motor[1] = INITIAL_SPEED/2;
-  Motor[2] = -INITIAL_SPEED/10;
+void LineTurnRight() { //Turn right in line mode
+  Motor[1] = INITIAL_SPEED/1.5;
+  Motor[2] = -INITIAL_SPEED/5;
   ShiftSpeed(Motor);
-  delay(200);
+  delay(300);
   while (!ReadLine(3)) {
     ShiftSpeed(Motor);
     delay(50);
   }
   StopAllMotor();
 }
-

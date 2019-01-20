@@ -6,7 +6,7 @@ void GetSensorStatus() { //Get all the sensor status
 
 bool ReadLine(int index) { //Get the sensor status for each sensor
   int temp = analogRead(Sensors[index]);
-  if (temp <= Sensor_HIGH) {
+  if (temp >= Sensor_HIGH) {
     return true;
   }
   else {
@@ -14,15 +14,48 @@ bool ReadLine(int index) { //Get the sensor status for each sensor
   }
 }
 
-void CheckBarrie() {
+int CheckBarrie(int directions) {
   static bool first = true;
-  if (GetDistance(1) <= 10 && first) {
-    StopAllMotor();
-    while (GetDistance(1) <=10) {
+  StopAllMotor();
+  static int did_direction = 0;
+  int distance = 0;
+  if (did_direction != 0) {
+    if (directions == did_direction) {
+      return 0;
+    } else {
+      static bool changed = false;
+      if (directions == 1) {
+        LineTurnLeft();
+      } else {
+        LineTurnRight();
+      }
+      if (changed) {
+        for (int i=0; i<10; i++) {
+          delay(1000);
+        }
+      } else {
+        changed = true;
+        did_direction *= -1;
+      }
+      return directions;
+    }
+  }
+  for (int i = 0; i < 4; i++) {
+    distance += GetDistance(1);
+  }
+  distance /= 4;
+  bool barie = (distance < 25 && first);
+  if (barie || first) {
+    long long int srt = millis();
+    while (GetDistance(1) <= 25) {
       delay(150);
     }
-    first = false;
-    sys_start = millis();
+    if (millis() - srt >= 2000) {
+      first = false;
+      did_direction = directions;
+      sys_start = millis();
+    }
+    return 0;
   }
 }
 

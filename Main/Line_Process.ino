@@ -1,9 +1,14 @@
+bool CheckParking(bool is_ready = false) {
+  static bool all_ready = false;
+  all_ready = is_ready;
+  return all_ready;
+}
+
 int GetError() { //Get the "error" in the moving direction
   static int prev_error = 0;
   switch (HighSignalCount()) {
     case 0: {
         CheckModeSwitch();
-        CheckBarrie();
         if (prev_error == 0) {
           return 0;
         } else if (prev_error == 6 || prev_error == 7) {
@@ -95,54 +100,79 @@ int GetError() { //Get the "error" in the moving direction
       }
     case 3: {
         if (Line[1] && Line[2] && Line[3]) {
-          prev_error = -4;
-          return -4;
+          switch (CheckBarrie(-1)) {
+            case 0: {
+                prev_error = 0;
+                return 0;
+              }
+            case -1: case 1: {
+                prev_error = -4;
+                return -4;
+              }
+          }
         } else if (Line[0] && Line[1] && Line[2]) {
           prev_error = -6;
           return -6;
         } else if (Line[3] && Line[4] && Line[5]) {
-          prev_error = 4;
-          return 4;
+          switch (CheckBarrie(1)) {
+            case 0: {
+                prev_error = 0;
+                return 0;
+              }
+            case 1: case -1: {
+                prev_error = 4;
+                return 4;
+              }
+          }
         } else if (Line[4] && Line[5] && Line[6]) {
           prev_error = 6;
           return 6;
         } else if (Line[2] && Line[3] && Line[4]) {
-          CheckBarrie();
           prev_error = 0;
           return 0;
         } else return prev_error;
+        break;
       }
     case 4: {
         if (Line[0] && Line[1] && Line[2] && Line[3]) {
-          prev_error = -8;
-          return -8;
+          switch (CheckBarrie(-1)) {
+            case 0: {
+                prev_error = 0;
+                return 0;
+              }
+            case -1: case 1:  {
+                prev_error = -8;
+                return -8;
+              }
+          }
         }
         else if (Line[6] && Line[5] && Line[4] && Line[3]) {
-          prev_error = 8;
-          return 8;
+          switch (CheckBarrie(1)) {
+            case 0: {
+                prev_error = 0;
+                return 0;
+              }
+            case 1: case -1: {
+                prev_error = 8;
+                return 8;
+              }
+          }
         }
         else {
           return prev_error;
         }
-      }
-    case 7: {
-        //        StopAllMotor();
-        //        for (int i = 0; i < 5; i++) {
-        //          delay(1000);
-        //        }
-        //        SystemReset();
         break;
       }
     default: {
-        CheckBarrie();
-        int temp = CountLeft() - CountRight();
-        if (temp < -1) {
+        /*int temp = CountLeft() - CountRight();
+          if (temp < -1) {
           prev_error = 8;
           return 8;
-        } else if (temp > 1) {
+          } else if (temp > 1) {
           prev_error = -8;
           return -8;
-        } else return prev_error;
+          } else*/
+        return 0;
         break;
       }
   }

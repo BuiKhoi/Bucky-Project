@@ -22,7 +22,7 @@ void ShiftSpeed(int *MotorSpeed) { //Shift the speed to the motors
 void MotorMapping(int *MotorSpeed) {
   int TEMP_INITIAL_SPEED = 0;
   if (millis() - sys_start < 600) {
-    TEMP_INITIAL_SPEED = (float)(INITIAL_SPEED * ((millis() - sys_start)) / 100);
+    TEMP_INITIAL_SPEED = (float)(INITIAL_SPEED * ((millis() - sys_start)) / 600);
   } else {
     TEMP_INITIAL_SPEED = INITIAL_SPEED;
   }
